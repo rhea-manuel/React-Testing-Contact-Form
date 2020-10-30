@@ -16,6 +16,7 @@ const ContactForm = () => {
         <div>
           <label htmlFor="firstName">First Name*</label>
           <input
+            id="firstName"
             name="firstName"
             placeholder="Edd"
             ref={register({ required: true, maxLength: 3 })}
@@ -31,24 +32,26 @@ const ContactForm = () => {
             name="lastName"
             placeholder="Burke"
             ref={register({ required: true })}
+            id="lastName"
           />
           {errors.lastName && (
             <p>Looks like there was an error: {errors.lastName.type}</p>
           )}
         </div>
 
-        <div>
+        <div data-testid="email">
           <label htmlFor="email" placeholder="bluebill1049@hotmail.com">
             Email*
           </label>
-          <input name="email" ref={register({ required: true })} />
+          <input id="email" name="email" ref={register({ required: true, pattern:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/ })} />
           {errors.email && (
+            // Added test ID to email to be able to detect
             <p>Looks like there was an error: {errors.email.type}</p>
           )}
         </div>
         <div>
           <label htmlFor="message">Message</label>
-          <textarea name="message" ref={register({ required: false })} />
+          <textarea id="message" name="message" ref={register({ required: false })} />
         </div>
         {data && (
           <pre style={{ textAlign: "left", color: "white" }}>
